@@ -1,0 +1,3 @@
+config/local.neon
+phinx.yml
+composer.lock

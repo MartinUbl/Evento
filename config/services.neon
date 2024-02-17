@@ -1,0 +1,9 @@
+services:
+	- App\Router\RouterFactory::createRouter
+	- App\Model\UserCacheModel
+
+search:
+	-	in: %appDir%
+		classes:
+			- *Factory
+			- *Facade

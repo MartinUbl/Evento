@@ -1,0 +1,36 @@
+{layout '@layout.latte'}
+
+{block content}
+
+<div class="container-fluid bg-info">
+
+    <div class="container">
+
+        <div class="row pt-2 pb-2">
+            <div class="col-6">
+            <h2><img src="{$baseUrl}/img/baka-logo.png" style="width: auto; height: 1em; margin-right: 0.3em; margin-top: -0.2em;" />Evento</h2>
+            <h5>Přihlašování na události a projektové dny</h5>
+            </div>
+            <!--div class="col-5">
+                <img src="{$baseUrl}/img/issz-logo.png" style="width: 9em; height: auto; margin-right: 2em;" />
+                <img src="{$baseUrl}/img/baka-logo.png" style="width: 3em; height: auto;" />
+            </div-->
+            <div class="col-6 text-end pt-2" style="font-size: 0.85em">
+                <p>
+                Přihlášen: {$userInfo->fullName}<br/>
+                Role: {$roleToString($userInfo->role)} {if $userInfo->role == \Martinubl\Bakalapi\Baka_UserType::STUDENT}({$userInfo->className}){/if}<br />
+                <a n:href="logout!">Odhlásit se</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{block main}{/block}
+
+<hr />
+<div class="container text-center">
+	<small style="color: #a0a0a0;">Copyright &copy; 2024 <a href="https://martinubl.cz/" title="Martin Úbl" style="color: #a0a0a0;">Martin Úbl</a></small>
+</div>

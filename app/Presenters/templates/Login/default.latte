@@ -1,0 +1,47 @@
+{block content}
+
+<div class="container">
+
+<div class="row justify-content-center align-items-center gap-0" style="height: 100vh;">
+    <div class="col-12 col-lg-3 col-md-4 col-sm-6 p-1">
+        <div class="row">
+            <div class="col-12 align-items-center text-center mb-4">
+                <h1 class="play">Evento</h1>
+                <p class="play">Přihlašování na události a projektové dny</p>
+
+                <img src="{$baseUrl}/img/baka-logo.png" style="width: 3em; height: auto; margin-right: 2em;" />
+                <img src="{$baseUrl}/img/issz-logo.png" style="width: 7.5em; height: auto;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 bg-info rounded-4 p-4">
+                {form loginForm}
+                    <div class="form-group">
+                        {label username class=>'play' /}
+                        {input username class=>'form-control mb-2'}
+                    </div>
+                    <div class="form-group">
+                        {label password class=>'play' /}
+                        {input password class=>'form-control'}
+                    </div>
+                    {if !empty($form->getErrors())}
+                        <div class="form-group mt-2 mb-1 text-danger-emphasis text-center">
+                        {foreach $form->getErrors() as $err}
+                            {$err}
+                        {/foreach}
+                        </div>
+                    {/if}
+                    <div class="form-group d-grid gap-2">
+                        {input submit class=>'btn btn-primary btn-expand play mt-4'}
+                    </div>
+                {/form}
+            </div>
+        </div>
+        <hr />
+        <div class="container text-center">
+            <small style="color: #a0a0a0;">Copyright &copy; 2024 <a href="https://martinubl.cz/" title="Martin Úbl" style="color: #a0a0a0;">Martin Úbl</a></small>
+        </div>
+    </div>
+</div>
+
+</div>
