@@ -11,7 +11,7 @@ final class AddEventParticipants extends AbstractMigration
         $tbl = $this->table('event_participants', [ 'id' => false, 'primary_key' => [ 'user_cache_uid', 'event_activities_id' ]]);
 
         $tbl->addColumn('user_cache_uid', 'string', ['null' => false])
-            ->addColumn('event_activities_id', 'integer', ['null' => false])
+            ->addColumn('event_activities_id', 'integer', ['null' => false, 'signed' => false])
             ->addColumn('created_at', 'datetime');
 
         $tbl->addForeignKey('user_cache_uid', 'user_cache', 'uid')

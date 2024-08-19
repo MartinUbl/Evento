@@ -16,9 +16,9 @@ final class AddEventGroupRulesTable extends AbstractMigration
          * ???
          */
 
-        $tbl->addColumn('events_id', 'integer', ['null' => false])
-            ->addColumn('activity_group_id', 'integer', ['null' => false])
-            ->addColumn('other_activity_group_id', 'integer', ['null' => false])
+        $tbl->addColumn('events_id', 'integer', ['null' => false, 'signed' => false])
+            ->addColumn('activity_group_id', 'integer', ['null' => false, 'signed' => false])
+            ->addColumn('other_activity_group_id', 'integer', ['null' => false, 'signed' => false])
             ->addColumn('rule', 'string', ['null' => false]);
 
         $tbl->addForeignKey('events_id', 'events', 'id')

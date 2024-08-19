@@ -12,7 +12,7 @@ final class AddEventActivityTable extends AbstractMigration
         $tbl = $this->table('event_activities');
 
         $tbl->addColumn('name', 'string', ['limit'=> 255])
-            ->addColumn('events_id', 'integer', [ 'null' => false ])
+            ->addColumn('events_id', 'integer', [ 'null' => false, 'signed' => false ])
             ->addColumn('description', 'text')
             ->addColumn('place', 'string', ['limit'=> 255])
             ->addColumn('instructions', 'text')
