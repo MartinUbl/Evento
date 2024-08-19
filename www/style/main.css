@@ -6,3 +6,65 @@
 *, body, html {
     font-family: Play;
 }
+
+.form-parent {
+    position: relative;
+}
+
+.form-error-message {
+    display: block;
+    position: absolute;
+    overflow: visible;
+    top: 0.2em;
+    right: 0;
+
+    color: red;
+    font-size: 0.8em;
+}
+
+.flash-container {
+    z-index: 999;
+    position: fixed;
+    top: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.flash {
+    display: block;
+    margin-bottom: 0.5em;
+    border-radius: 4px;
+    padding: 0.5em 4em 0.5em 2em;
+
+    position: relative;
+}
+
+.flash.success {
+    border: 2px solid green;
+    background-color: #BBFFBB;
+    color: #004400;
+}
+
+.flash.error {
+    border: 2px solid red;
+    background-color: #FFBBBB;
+    color: #440000;
+}
+
+.flash .btn-close {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.topmenu {
+    background-color: #6df;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+}
+
+.topmenubutton {
+    background-color: #8ef;
+}

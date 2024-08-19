@@ -1,0 +1,107 @@
+{layout ../main.latte}
+
+{block scriptshead}
+<script src="{$baseUrl}/js/vendor/jquery.datetimepicker.full.js"></script>
+{/block}
+
+{block main}
+
+<div class="container-fluid topmenu">
+    <div class="container">
+        <a n:href="EventAdmin:list" class="btn topmenubutton"><i class="fa-solid fa-backward"></i>&nbsp; Zpět</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12">
+            <h2>Přidat novou událost</h2>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+            
+            {form eventEditForm}
+            <div class="mt-0 form-parent">
+                {label name class=>'form-label' /}
+                <p class="small mt-0">
+                    Sem napište to, jak se má událost prezentovat žákům a učitelům. Je to například "Projektový den pro ekonomy", nebo "Tajná procházka"?
+                </p>
+                {input name class=>'form-control'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label description class=>'form-label' /}
+                <p class="small mt-0">
+                    Tohle je delší popis události, zobrazí se žákům a učitelům až při rozkliknutí. Sem popište, jak zhruba bude událost vypadat, co se bude dít a jak je celý den organizovaný.
+                </p>
+                {input description class=>'form-control'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label datetime_from class=>'form-label' /}
+                <p class="small mt-0">
+                    Který den a od kolika hodin se samotná událost koná?
+                </p>
+                {input datetime_from class=>'form-control datetime-target'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label datetime_to class=>'form-label' /}
+                <p class="small mt-0">
+                    Do kterého dne a do kolika hodin se samotná událost koná?
+                </p>
+                {input datetime_to class=>'form-control datetime-target'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label registration_date_from class=>'form-label' /}
+                <p class="small mt-0">
+                    Ve který den a hodinu otevřít registrace na událost?
+                </p>
+                {input registration_date_from class=>'form-control datetime-target'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label registration_date_to class=>'form-label' /}
+                <p class="small mt-0">
+                    Ve který den a hodinu uzavřít registrace na událost?
+                </p>
+                {input registration_date_to class=>'form-control datetime-target'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label restrict_user_type class=>'form-label' /}
+                <p class="small mt-0">
+                    Je událost jen pro žáky, jen pro učitele, nebo se může hlásit kdokoliv?
+                </p>
+                {input restrict_user_type class=>'form-select'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                <div class="form-check form-switch">
+                    {input public:}
+                    {label public: /}
+                    <p class="small mt-2">
+                        Pokud má být událost hned viditelná všem, tohle zapněte. Jinak bude viditelná jen Vám a bude čekat, dokud ji nezveřejníte. Událost je vhodné pozdržet jako neveřejnou, dokud nemáte připravené všechny stanoviště a aktivity.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12 d-grid">
+                    {input submit class=>'btn btn-primary'}
+                </div>
+            </div>
+            
+            {/form}
+
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    jQuery.datetimepicker.setLocale('cs');
+    $('.datetime-target').datetimepicker({ 'format': 'd.m.Y H:i' });
+});
+</script>

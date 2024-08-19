@@ -1,0 +1,44 @@
+{layout ../main.latte}
+
+{block scriptshead}
+<script src="{$baseUrl}/js/vendor/jquery.datetimepicker.full.js"></script>
+{/block}
+
+{block main}
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12 justify-items-center text-center">
+            <a n:href="Home:" class="btn btn-primary"><i class="fa-solid fa-backward"></i>&nbsp;<br/>Zpět na domovskou stránku</a>
+            <a n:href="Event:join $activity->events_id" class="btn btn-primary"><i class="fa-solid fa-backward"></i>&nbsp;<br/>Zpět na aktivity</a>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+            <h2>Detail aktivity</h2>
+            <h3>{$activity->name}</h3>
+            <p>
+                Místo konání<br />
+                {$activity->place}
+            </p>
+            <p>
+                Skupina:<br />
+                {$printGroupSq($groups[$activity->group])|noescape}
+            </p>
+            <p>
+                Kapacita:<br />
+                0 / {$activity->capacity}
+            </p>
+            <p>
+                Popis<br />
+                {$activity->description}
+            </p>
+            {if !empty($activity->instructions)}
+            <p>
+                Speciální instrukce:<br />
+                {$activity->instructions}
+            </p>
+            {/if}
+        </div>
+    </div>
+</div>

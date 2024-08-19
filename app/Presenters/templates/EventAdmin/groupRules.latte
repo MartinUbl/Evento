@@ -1,0 +1,134 @@
+{layout ../main.latte}
+
+{block main}
+
+<div class="container-fluid topmenu">
+    <div class="container">
+        <a n:href="EventAdmin:list" class="btn topmenubutton"><i class="fa-solid fa-table-list"></i>&nbsp; Moje události</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12">
+            <h2>Editace pravidel pro skupiny</h2>
+            <p>Událost: {$event->name}</p>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+
+            <h3>Jak jsou skupiny nastaveny teď?</h3>
+
+            {if empty($groupRules['exclude']) && empty($groupRules['enforce'])}
+                <i>Zatím nebyla specifikována žádná pravidla</i>
+            {else}
+
+                {if !empty($groupRules['exclude'])}
+                    {foreach $groupRules['exclude'] as $gr1 => $arr}
+                        Ti, co mají zapsanou aktivitu skupiny {$printGroupSq($groups[$gr1])|noescape} si nemůžou zapsat další aktivitu skupin:
+                        {foreach $arr as $gr2}
+                            {$printGroupSq($groups[$gr2])|noescape}
+                        {/foreach}
+                        <br />
+                    {/foreach}
+                {/if}
+                {if !empty($groupRules['enforce'])}
+                    {foreach $groupRules['enforce'] as $gr1 => $arr}
+                        Ti, co mají zapsanou aktivitu skupiny {$printGroupSq($groups[$gr1])|noescape} si musí zapsat další aktivitu skupin:
+                        {foreach $arr as $gr2}
+                            {$printGroupSq($groups[$gr2])|noescape}
+                        {/foreach}
+                        <br />
+                    {/foreach}
+                {/if}
+
+            {/if}
+
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+
+            {form groupRuleForm}
+                <h3>Vzájemné vyloučení skupin</h3>
+                {foreach $groups as $gid => $arr}
+                    Účastník zapsaný ve skupině {$printGroupSq($groups[$gid])|noescape} si nemůže zapsat aktivity ze skupiny: <br/>
+
+                    {foreach $groups as $gid2 => $arr2}
+                        {var $component = $form->components['ex_group_'.$gid]->components['og_'.$gid2]}
+                        <div class="alert alert-light" style="float:left;padding:0.4em;margin:right:0.3em;">
+                        {input $component: }
+                        {$printGroup($groups[$gid2])|noescape}
+                        </div>
+                    {/foreach}
+                    <div style="clear:both;"></div>
+                    <hr />
+                {/foreach}
+
+                <h3>Vzájemné vynucení skupin</h3>
+                
+                {foreach $groups as $gid => $arr}
+                    Účastník zapsaný ve skupině {$printGroupSq($groups[$gid])|noescape} si musí zapsat aktivitu ze skupiny: <br/>
+
+                    {foreach $groups as $gid2 => $arr2}
+                        {var $component = $form->components['enf_group_'.$gid]->components['og_'.$gid2]}
+                        {input $component: }
+                        {$printGroup($groups[$gid2])|noescape}
+                    {/foreach}
+                    <hr />
+                {/foreach}
+
+                <p>
+                    {input submit class=>'btn btn-info float-right d-block'}
+                </p>
+            {/form}
+
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+    $('input[type="checkbox"]').each(function(i,e) {
+        $(e).change(function() {
+            var id = $(e).attr('id');
+
+            var matched_ex = /frm-groupRuleForm-ex_group_([0-9]+)-og_([0-9]+)/.exec(id);
+            var matched_enf = /frm-groupRuleForm-enf_group_([0-9]+)-og_([0-9]+)/.exec(id);
+            if (matched_ex && matched_ex.length == 3) {
+                var src = matched_ex[1];
+                var dst = matched_ex[2];
+                console.log("Ex change "+src+", g "+dst);
+
+                $('#frm-groupRuleForm-ex_group_'+dst+'-og_'+src).prop('checked', $(e).is(':checked'));
+
+                var enf = $('#frm-groupRuleForm-enf_group_'+src+'-og_'+dst);
+                if (enf.is(':checked'))
+                    enf.prop('checked', false);
+                var enf = $('#frm-groupRuleForm-enf_group_'+dst+'-og_'+src);
+                if (enf.is(':checked'))
+                    enf.prop('checked', false);
+            }
+            else if (matched_enf && matched_enf.length == 3) {
+                var src = matched_enf[1];
+                var dst = matched_enf[2];
+                console.log("Enf change "+src+", g "+dst);
+
+                $('#frm-groupRuleForm-enf_group_'+dst+'-og_'+src).prop('checked', $(e).is(':checked'));
+
+                var ex = $('#frm-groupRuleForm-ex_group_'+src+'-og_'+dst);
+                if (ex.is(':checked'))
+                    ex.prop('checked', false);
+                var ex = $('#frm-groupRuleForm-ex_group_'+dst+'-og_'+src);
+                if (ex.is(':checked'))
+                    ex.prop('checked', false);
+            }
+
+            //console.log("change "+$(e).attr('id')+"!");
+        });
+    });
+
+});
+</script>

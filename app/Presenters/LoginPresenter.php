@@ -41,15 +41,12 @@ final class LoginPresenter extends BasePresenter
         return $form;
     }
 
-    protected function useCachedLoginInfo($authResult) {
-        //
-    }
-
     public function loginFormSuccess(Form $form) {
 
         $vals = $form->values;
 
         $liveResult = false;
+        $postponeTokenExpiry = false;
         $tryAuthResult = $this->userCacheModel->tryAuth($vals->username, $vals->password);
         if ($tryAuthResult && !isset($tryAuthResult['error']) && isset($tryAuthResult['token']) && isset($tryAuthResult['user_info']) &&
             !empty($tryAuthResult['token']) && !empty($tryAuthResult['user_info'])) {
@@ -57,7 +54,7 @@ final class LoginPresenter extends BasePresenter
         }
         else {
             try {
-                //throw new Exception("Testing");
+                throw new Exception("Testing");
                 $result = $this->api->login($vals->username, $vals->password);
                 $liveResult = true;
             }
@@ -66,6 +63,7 @@ final class LoginPresenter extends BasePresenter
                 $tryAuthResult = $this->userCacheModel->tryAuth($vals->username, $vals->password, true);
                 if ($tryAuthResult && !isset($tryAuthResult['error'])) {
                     $result = \Martinubl\Bakalapi\Baka_LoginError::OK;
+                    $postponeTokenExpiry = true;
                 }
                 else {
                     $result = \Martinubl\Bakalapi\Baka_LoginError::INVALID;
@@ -73,12 +71,17 @@ final class LoginPresenter extends BasePresenter
             }
         }
 
-        
-
         if ($result == \Martinubl\Bakalapi\Baka_LoginError::OK) {
 
             if (!$liveResult) {
-                $this->api->useToken($tryAuthResult['token'], $tryAuthResult['token_expiry']);
+
+                $authTokenExpiry = $tryAuthResult['token_expiry'];
+                // postpone token expiry when the auth backend does not respond
+                if ($postponeTokenExpiry) {
+                    $authTokenExpiry = time() + 3600;
+                }
+
+                $this->api->useCached($tryAuthResult['token'], $authTokenExpiry, $tryAuthResult['user_info']);
             }
 
             $this->api->saveToSession();

@@ -1,0 +1,48 @@
+{layout ../main.latte}
+
+{block main}
+
+<div class="container-fluid topmenu">
+    <div class="container">
+        <a n:href="EventAdmin:list" class="btn topmenubutton"><i class="fa-solid fa-backward"></i>&nbsp; Zpět na události</a>
+        <a n:href="EventAdmin:addActivity id=>$evt->id" class="btn topmenubutton"><i class="fa-solid fa-circle-plus"></i>&nbsp; Přidat aktivitu</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12">
+            {if $activities->count() == 0}
+                <i>Zatím tu nejsou žádné aktivity</i>
+            {else}
+                <div class="row">
+                {foreach $activities as $act}
+                    <div class="col-3 p-3">
+                    <div class="row">
+                    <div class="col-12 border border-info rounded p-3 m-1">
+                        <h5>{$act->name}</h5>
+                        <p>
+                            Skupina: {$printGroupSq($groups[$act->group])|noescape}
+                        </p>
+                        <p>
+                            {$act->place}<br />
+                            {if isset($activityCounts[$act->id])}{$activityCounts[$act->id]}{else}0{/if} / {$act->capacity}
+                        </p>
+                        <p>
+                            {$act->description}
+                        </p>
+                        <p>
+                            <a n:href="EventAdmin:editActivity id=>$act->id" class="btn btn-info float-right d-block mb-1"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Editovat</a>
+                            <a n:href="duplicateActivity! activityId=>$act->id" class="btn btn-success float-right d-block mb-1"><i class="fa-solid fa-clone"></i>&nbsp; Duplikovat</a>
+                            <a n:href="deleteActivity! activityId=>$act->id" class="btn btn-danger float-right d-block mb-0" onclick="return confirm('Doopravdy chcete smazat aktivitu {$act->name}?');"><i class="fa-solid fa-trash-can"></i>&nbsp; Smazat</a>
+                        </p>
+                    </div>
+                    </div>
+                    </div>
+                {/foreach}
+                </div>
+            {/if}
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,48 @@
+{layout ../main.latte}
+
+{block main}
+
+<div class="container-fluid topmenu">
+    <div class="container">
+        <a n:href="Home:" class="btn topmenubutton"><i class="fa-solid fa-backward"></i>&nbsp; Zpět</a>
+        <a n:href="EventAdmin:add" class="btn topmenubutton"><i class="fa-solid fa-circle-plus"></i>&nbsp; Přidat událost</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12 ps-4 pe-4">
+            {foreach $events as $evt}
+            <div class="row">
+                <div class="col-12 border border-info rounded mb-2 pt-3">
+                    <h5>{$evt->name}</h5>
+                    <p>
+                        {$evt->description}
+                    </p>
+                    <p>
+                    {var $now = new DateTime()}
+                    {if new \DateTime($evt->datetime_to) < $now}
+                    <i>Událost již proběhla</i>
+                    {elseif new \DateTime($evt->datetime_from) < $now}
+                    <i>Událost právě probíhá</i>
+                    {elseif new \DateTime($evt->registration_date_to) < $now}
+                    <i>Událost má uzavřené registrace</i>
+                    {elseif new \DateTime($evt->registration_date_from) < $now}
+                    <i>Událost je otevřena pro registrace účastníků</i>
+                    {else}
+                    <i>Událost je zatím uzavřena</i>
+                    {/if}
+                    </p>
+                    <p>
+                        <a n:href="EventAdmin:edit id=>$evt->id" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Editovat</a>
+                        <a n:href="EventAdmin:groupRules id=>$evt->id" class="btn btn-info"><i class="fa-solid fa-layer-group"></i>&nbsp; Skupiny aktivit</a>
+                        <a n:href="EventAdmin:listActivities id=>$evt->id" class="btn btn-info"><i class="fa-solid fa-person-skating"></i>&nbsp; Aktivity</a>
+                        {*<a n:href="exportEventParticipants! eventId=>$evt->id" class="btn btn-info"><i class="fa-solid fa-download"></i>&nbsp; Úplný export účastníků</a>*}
+                        <a n:href="EventAdmin:participants id=>$evt->id" class="btn btn-info"><i class="fa-solid fa-person-circle-check"></i>&nbsp; Seznam účastníků</a>
+                    </p>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+</div>

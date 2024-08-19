@@ -1,0 +1,30 @@
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="row border rounded border-primary m-1 pt-2 pb-2">
+            <div class="col-12">
+                <h3>{$event->name}</h3>
+            </div>
+            <div class="col-12">
+                <table>
+                    <tr>
+                        <td>Datum a čas konání: </td>
+                        <td>
+                            {$event->datetime_from|date:'j. n. Y H:i'}
+                            -
+                            {$event->datetime_to|date:'j. n. Y H:i'}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-12">
+                <p class="mb-0">{$event->description}</p>
+            </div>
+            {if $allowJoin}
+            <div class="col-12">
+                <a href="{plink Event:join $event->id}" class="btn btn-primary">Přihlásit se!</a>
+            </div>
+            {/if}
+        </div>
+    </div>
+</div>

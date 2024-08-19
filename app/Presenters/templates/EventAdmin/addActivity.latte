@@ -1,0 +1,77 @@
+{layout ../main.latte}
+
+{block main}
+
+<div class="container-fluid topmenu">
+    <div class="container">
+        <a n:href="EventAdmin:list" class="btn topmenubutton"><i class="fa-solid fa-table-list"></i>&nbsp; Moje události</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12">
+            <h2>Přidat novou aktivitu v události</h2>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+            
+            {form activityEditForm}
+            <div class="mt-0 form-parent">
+                {label name class=>'form-label' /}
+                <p class="small mt-0">
+                    Sem napište to, jak se má aktivita prezentovat žákům a učitelům. Je to například "Lekce finanční gramotnosti" nebo "Fakta a mýty o výživě"?
+                </p>
+                {input name class=>'form-control'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label description class=>'form-label' /}
+                <p class="small mt-0">
+                    Tohle je delší popis aktivity, zobrazí se žákům a učitelům až při rozkliknutí. Sem popište, jak zhruba bude aktivita vypadat, co se bude dít a jak je organizovaná.
+                </p>
+                {input description class=>'form-control'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label instructions class=>'form-label' /}
+                <p class="small mt-0">
+                    Jsou nějaké speciální instrukce pro žáky nebo učitele? Mají si žáci něco speciálního vzít s sebou?
+                </p>
+                {input instructions class=>'form-control'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label place class=>'form-label' /}
+                <p class="small mt-0">
+                    Kam mají účastníci dorazit? Jde například o učebnu číslo 13, je sraz před vchodem do budovy, nebo rovnou na nějaké konkrétní adrese?
+                </p>
+                {input place class=>'form-control'}
+                
+            </div>
+            <div class="mt-3 form-parent">
+                {label capacity class=>'form-label' /}
+                <p class="small mt-0">
+                    Jaká je maximální kapacita této aktivity? Vždy něco zadejte.
+                </p>
+                {input capacity class=>'form-control'}
+            </div>
+            <div class="mt-3 form-parent">
+                {label group class=>'form-label' /}
+                <p class="small mt-0">
+                    Do jaké skupiny tato aktivita patří? Vyberte jednu.
+                </p>
+                {input group class=>'form-select'}
+            </div>
+            <div class="row">
+                <div class="col col-12 d-grid">
+                    {input submit class=>'btn btn-primary'}
+                </div>
+            </div>
+            
+            {/form}
+
+        </div>
+    </div>
+</div>

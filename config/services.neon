@@ -1,6 +1,8 @@
 services:
 	- App\Router\RouterFactory::createRouter
 	- App\Model\UserCacheModel
+	- App\Model\UserDetailsModel
+	- App\Model\EventsModel
 
 search:
 	-	in: %appDir%

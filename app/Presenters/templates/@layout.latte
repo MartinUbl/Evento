@@ -8,18 +8,26 @@
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="{$baseUrl}/style/main.css">
+	<link rel="stylesheet" href="{$baseUrl}/style/jquery.datetimepicker.min.css">
 	<script src="https://kit.fontawesome.com/8321f6fdd4.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="{$baseUrl}/js/vendor/jquery.min.js"></script>
+	<script src="{$baseUrl}/js/vendor/jquery-ui.min.js"></script>
+	<script src="{$baseUrl}/js/vendor/jquery.nette.js"></script>
+    <script src="{$baseUrl}/js/vendor/what-input.js"></script>
+    <script src="{$baseUrl}/js/vendor/netteForms.js"></script>
+    <script src="{$baseUrl}/js/vendor/live-form-validation.js"></script>
+	<script src="{$baseUrl}/js/main.js"></script>
+	{block scriptshead}
+	{/block}
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	<div class="flash-container">
+        <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message} <button type="button" class="btn-close" aria-label="Close"></button></div>
+    </div>
 
 	{include content}
-
-	{block scripts}
-	<script src="https://unpkg.com/nette-forms@3/src/assets/netteForms.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	{/block}
 </body>
 </html>

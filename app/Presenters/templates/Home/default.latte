@@ -2,15 +2,115 @@
 
 {block main}
 
+<div class="container-fluid topmenu">
+    <div class="container">
+        <a n:href="EventAdmin:add" class="btn topmenubutton"><i class="fa-solid fa-circle-plus"></i>&nbsp; Přidat událost</a>
+        <a n:href="EventAdmin:list" class="btn topmenubutton"><i class="fa-solid fa-table-list"></i>&nbsp; Moje události</a>
+    </div>
+</div>
+
 <div class="container">
+    {var $someEvents = false}
+
+    {if !empty($events['future'])}
+    <div class="row pt-3">
+        <div class="col-12">
+            <h4>Připravované události</h4>
+        </div>
+    </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            {var $someEvents = true}
+            {foreach $events['future'] as $evt}
+                {control eventInfoBox $evt}
+            {/foreach}
+        </div>
+    </div>
+    {else}
+    {/if}
+
+
+    {if !empty($events['onboard'])}
     <div class="row pt-3">
         <div class="col-12">
             <h4>Nadcházející události</h4>
         </div>
     </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            {var $someEvents = true}
+            {foreach $events['onboard'] as $evt}
+                {var $userRestriction = ($evt->restrict_user_type === null || $evt->restrict_user_type === $userRole)}
+                {control eventInfoBox $evt, $userRestriction}
+            {/foreach}
+        </div>
+    </div>
+    {else}
+    {/if}
+
+
+
+    {if !empty($events['closed'])}
+    <div class="row pt-3">
+        <div class="col-12">
+            <h4>Události s uzavřenou registrací</h4>
+        </div>
+    </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            {var $someEvents = true}
+            {foreach $events['closed'] as $evt}
+                {control eventInfoBox $evt}
+            {/foreach}
+        </div>
+    </div>
+    {else}
+    {/if}
+
+
+
+    {if !empty($events['current'])}
+    <div class="row pt-3">
+        <div class="col-12">
+            <h4>Právě probíhající události</h4>
+        </div>
+    </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            {var $someEvents = true}
+            {foreach $events['current'] as $evt}
+                {control eventInfoBox $evt}
+            {/foreach}
+        </div>
+    </div>
+    {else}
+    {/if}
+
+
+
+    {if !empty($events['past'])}
     <div class="row pt-3">
         <div class="col-12">
             <h4>Proběhlé události</h4>
         </div>
     </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            {var $someEvents = true}
+            {foreach $events['past'] as $evt}
+                {control eventInfoBox $evt}
+            {/foreach}
+        </div>
+    </div>
+    {else}
+    {/if}
+
+
+    {if !$someEvents}
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            <i>Momentálně tu nejsou žádné události.</i>
+        </div>
+    </div>
+    {/if}
 </div>

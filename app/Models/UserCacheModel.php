@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use Nette;
-
 class UserCacheModel extends BaseModel {
 
     public $implicitTable = 'user_cache';

@@ -12,15 +12,22 @@ class BasePresenter extends Nette\Application\UI\Presenter
 
     public function __construct() {
         $this->api = new \Martinubl\Bakalapi\Client('https://server-bakalari.issziv.cz:85/', '/bakaweb');
-        $this->api->restoreFromSession();
+        $this->api->restoreFromSession(true);
     }
 
     public function actionDefault() {
         //
     }
 
-    public function handleLogout() {
-        $this->api->logout();
-        $this->redirect('Login:');
+    public function printGroup($rec) {
+        return '<span style="color:#'.$rec['color'].'">'.$rec['name'].'</span>';
+    }
+
+    public function printGroupSq($rec) {
+        return '<span style="display: inline-block; width: 0.8em;height:0.8em;background-color:#'.$rec['color'].'"></span>&nbsp;<span style="color:#'.$rec['color'].'">'.$rec['name'].'</span>';
+    }
+
+    public function printGroupSqOnly($rec) {
+        return '<span style="display: inline-block; width: 0.8em;height:0.8em;background-color:#'.$rec['color'].'"></span>';
     }
 }
